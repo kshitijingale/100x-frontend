@@ -1,7 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../Button'
+import { useSignupContext } from '../../context/SignupContext'
+import Input from '../Input'
+
 
 const CreateAccountStep3 = () => {
+    const [code, setCode] = useState('')
+    const { nextStep, formData } = useSignupContext()
+    const { email } = formData;
+
+    const getOTP = async () => {
+        try {
+            const response = await fetch('https://email-verification-cba2.onrender.com/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    to: email
+                }),
+            })
+            const data = await response.json();
+            localStorage.setItem('otp', data.otp)
+            // console.log(data);
+        } catch (error) {
+            // Handle errors during the fetch
+            console.error('Fetch error:', error);
+        }
+    }
+
+    const handleSubmit = () => {
+        const isValidCode = code === localStorage.getItem('otp');
+        // console.log(isValidCode);
+        if (!isValidCode) {
+            // The OTP is incorrect, display an alert
+            alert('Incorrect OTP. Please try again.');
+            return
+        }
+        nextStep();
+    }
+
+    const handleChange = (e) => {
+        setCode(e.target.value)
+    }
+
+    useEffect(() => {
+        getOTP()
+    }, [])
+
     return (
         <div className="flex flex-col items-start gap-10 self-stretch text-neutral-50">
             <div className="flex flex-col items-start gap-2 self-stretch">
@@ -11,16 +57,13 @@ const CreateAccountStep3 = () => {
                 </p>
             </div>
             <form className="flex flex-col items-start gap-3 self-stretch text-neutral-50">
-                <div className="relative flex flex-col self-stretch">
-                    <input className="flex items-center self-stretch gap-[10px] text-xl peer bg-transparent placeholder:text-neutral-500 border border-neutral-500 rounded py-4 px-3 outline-none focus:border-twitter-blue text-neutral-50" placeholder="Verification code" type="text" />
-                    <label className="text-neutral-500 peer-focus:text-twitter-blue text-xs absolute top-[-7px] left-3 px-1 bg-black text-center">Verification Code</label>
-                </div>
+                <Input name='otp' label='Verification Code' type='text' placeholder='Verification Code' value={code} onChange={(e) => handleChange(e)} />
                 <div className="flex flex-col self-stretch items-end">
                     <span className="text-sm font-normal leading-normal text-twitter-blue">Didn’t receive a code?</span>
                 </div>
             </form>
             <div className='absolute bottom-5 right-5 left-5 flex flex-col self-stretch'>
-                <Button >
+                <Button onClick={handleSubmit}>
                     Next
                 </Button>
             </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import loginLogo100 from "../../assets/login-100.svg"
 import loginLogoX from "../../assets/login-group-27162.svg"
 
-const LoginHeader = () => {
+const LandingHeader = () => {
     return (
         <header className="flex justify-center py-3 px-4 items-center h-fit">
             <img
@@ -19,4 +19,4 @@ const LoginHeader = () => {
     )
 }
 
-export default LoginHeader
+export default LandingHeader

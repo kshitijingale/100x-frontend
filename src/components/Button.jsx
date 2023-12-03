@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Button = ({ varient = "default", isDisabled = false, children, size = "m" }) => {
+const Button = ({ varient = "default", isDisabled = false, children, size = "m", ...rest }) => {
     const base = "font-px-regular rounded-full font-bold text-center"
 
     const varients = {
@@ -39,7 +39,7 @@ const Button = ({ varient = "default", isDisabled = false, children, size = "m" 
 
     const classes = `${base} ${varients[varient]} ${sizes[varient][size]}`
     return (
-        <button className={`${classes}`} disabled={isDisabled}>
+        <button className={`${classes}`} disabled={isDisabled} {...rest}>
             {children}
         </button>
     )

@@ -1,12 +1,11 @@
 import React from 'react'
 import Button from "../components/Button.jsx"
-import LoginHeader from '../components/Login/LoginHeader'
-import icon from '../assets/copy-link-home-icon.svg'
+import LandingHeader from '../components/LandingPage/LandingHeader'
 
-const Login = () => {
+const LandingPage = () => {
     return (
         <div id="container" className="grid h-screen bg-black font-px-regular">
-            <LoginHeader />
+            <LandingHeader />
             <div
                 id="login-container"
                 className="text-neutral-50 flex flex-col px-[28px] items-start gap-[40px] justify-self-center"
@@ -38,4 +37,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default LandingPage

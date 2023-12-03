@@ -6,13 +6,19 @@
 //   </>
 // }
 
+import { SignupProvider } from "./context/SignupContext";
 import CreateAccount from "./pages/CreateAccount";
-import Login from "./pages/Login";
+import LandingPage from "./pages/LandingPage";
+import SignIn from "./pages/SignIn";
 
 function App() {
   return <>
-    {/* <Login /> */}
-    <CreateAccount />
+    {/* <LandingPage /> */}
+    {/* <SignupProvider>
+
+      <CreateAccount />
+    </SignupProvider> */}
+    <SignIn />
   </>
   //  <TweetApp />
 }
